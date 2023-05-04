@@ -1,0 +1,13 @@
+<mvc:View controllerName = "zprojectteste2303.controller.HelloPanel"      
+    xmlns:mvc="sap.ui.core.mvc" displayBlock="true"
+    xmlns="sap.m">                  <!-- 어떤 컨트롤러 쓸껀지 연결 -->
+    <Panel id="_IDGenPanel1" headerText = "Header" 
+        class = "sapUiResponsiveMargin"
+        width = "auto">   <!-- class에 css문법에 맞춰 내가 만든 컨트롤러 구성 가능 -->
+        <content>
+            <Button id="_IDGenButton1" text="Hello Button" 
+                press="onHelloPress"/>  <!--press이벤트 발생시 onHelloPress라는 메서드가 실행됨.-->
+            <Input id="_IDGenInput1" value = "Input Value"/>
+        </content>
+    </Panel>
+</mvc:View>

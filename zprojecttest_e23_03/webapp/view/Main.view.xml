@@ -1,0 +1,9 @@
+<mvc:View controllerName="zprojectteste2303.controller.Main"
+    xmlns:mvc="sap.ui.core.mvc" displayBlock="true"
+    xmlns="sap.m">
+    <Page id="page" title="{i18n>title}">
+        <content>
+            <mvc:XMLView id="_IDGenXMLView1" viewName = "zprojectteste2303.view.HelloPanel"/>  <!-- 경로 설정 -->
+        </content>
+    </Page>
+</mvc:View>

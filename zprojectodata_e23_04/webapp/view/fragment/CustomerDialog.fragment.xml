@@ -1,0 +1,53 @@
+<core:FragmentDefinition
+    xmlns:core="sap.ui.core"
+    xmlns="sap.m"
+    xmlns:t="sap.ui.table">
+
+    <Dialog id="customerDialog" title="Customer Title" afterClose="._search"> 
+        <content>
+            <Text text="Customer Dialog" />
+
+            <t:Table
+                id = "idCustomer"
+                rows="{/Customers}"
+                selectionMode="Single"
+                visibleRowCount="7"
+                rowSelectionChange = "onChange"
+                paste="onPaste"
+                ariaLabelledBy="title">
+                <t:extension>
+                    <OverflowToolbar style="Clear">
+                        <Title id="title" text="Customer Data" />
+                        <ToolbarSpacer />
+                        <!-- <Button text="Add" press = "onAdd"/> -->
+                        <!-- <Button text="Delete" press = "onDelete"/> -->
+                    </OverflowToolbar>
+                </t:extension>
+
+                <t:columns>
+
+                    <t:Column>
+                        <Label text="Customer ID" />
+                        <t:template>
+                            <Text text="{CustomerID}" wrapping="false" />
+                        </t:template>
+                    </t:Column>
+
+                    <t:Column>
+                        <Label text="Company Name" />
+                        <t:template>
+                            <Text text="{CompanyName}" wrapping="false" />
+                        </t:template>
+                    </t:Column>
+
+                </t:columns>
+            </t:Table>
+
+        </content>
+
+        <endButton>
+            <Button text="close" press=".onClose" /> <!--press라는 이벤트 발생시 onClose 함수 실행-->
+        </endButton>
+
+    </Dialog>
+</core:FragmentDefinition>

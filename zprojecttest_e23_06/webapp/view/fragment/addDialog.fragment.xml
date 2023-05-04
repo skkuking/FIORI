@@ -1,0 +1,25 @@
+<core:FragmentDefinition 
+    xmlns:core="sap.ui.core"
+    xmlns="sap.m"
+    xmlns:l="sap.ui.layout">
+    <Dialog id="addDialog" title="Add todo" beforeOpen="beforeOpen">
+        <content>
+            <HBox height="60px" 
+                alignItems="Center"
+                justifyContent="Center">
+
+                <Label text="Content" class="sapUiSmallMarginEnd"/>
+                <Text text=""/>
+                <Input value="{root>/value}" type="Text" id = "idTodo1"/>
+            
+            </HBox>
+        </content>
+
+        <beginButton>
+            <Button text="Confirm" press=".onConfirm" /> <!--press라는 이벤트 발생시 onClose 함수 실행-->
+        </beginButton>
+        <endButton>
+            <Button text="close" press=".onClose"/> <!--press라는 이벤트 발생시 onClose 함수 실행-->
+        </endButton>
+    </Dialog>
+</core:FragmentDefinition>
