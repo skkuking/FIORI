@@ -9,7 +9,7 @@
         <content>
             <viz:Popover id="idViewPopover"/>
             <viz:VizFrame id="idViewChart" 
-                            vizType="stacked_bar" 
+                            vizType="column" 
                             width="50%" 
                             height="50%"
                             vizProperties= "{
