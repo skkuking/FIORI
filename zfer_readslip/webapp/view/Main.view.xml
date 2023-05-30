@@ -1,0 +1,228 @@
+<mvc:View controllerName="ER.zferreadslip.controller.Main"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.uxap"
+    xmlns:core='sap.ui.core'
+    xmlns:t="sap.ui.table"
+    xmlns:m="sap.m"
+    xmlns:uxap="sap.uxap"
+    xmlns:l="sap.ui.layout"
+    xmlns:fb="sap.ui.comp.filterbar"
+    xmlns:f="sap.f"
+    height="100%">
+    <ObjectPageLayout
+        id="ObjectPageLayout"
+        upperCaseAnchorBar="false"
+        useIconTabBar="true">
+        <headerTitle>
+            <ObjectPageHeader objectTitle="전표 조회 검색">
+                <actions>
+                    <ObjectPageHeaderActionButton
+                        icon="sap-icon://document-text"
+                        text='문서 미리보기'
+                        hideText="false"
+                        press='onGenerate'
+                        type='Emphasized'
+                    />
+                </actions>
+            </ObjectPageHeader>
+        </headerTitle>
+        <headerContent>
+            <m:ObjectAttribute title="title of objectattri" text="검색 조건" />
+
+            <fb:FilterBar id="idFilterBar" header="Search Filters" useToolbar="false"
+                search="onSearch" filterContainerWidth="10rem">
+                <fb:filterGroupItems>
+
+                    <fb:FilterGroupItem groupName="__$INTERNAL$" name="idSliph" label="전표 번호"
+                        visibleInFilterBar="true">
+                        <fb:control>
+                            <m:MaskInput
+                                id='idSliph'
+                                mask="~~~~~~~~~~~~"
+                                placeholderSymbol="_"
+                                placeholder="ex) SLN123456789"
+                                liveChange="onChangeSliph">
+                                <m:rules>
+                                    <m:MaskInputRule maskFormatSymbol="~" regex="[^_]" />
+                                </m:rules>
+                            </m:MaskInput>
+                        </fb:control>
+                    </fb:FilterGroupItem>
+
+                    <fb:FilterGroupItem groupName="__$INTERNAL$" name="idDocnum" label="증빙문서번호"
+                        visibleInFilterBar="true">
+                        <fb:control>
+                            <m:MaskInput
+                                id='idDocnum'
+                                mask="~~~~~~~~~~~~"
+                                placeholderSymbol="_"
+                                placeholder="ex) CWN230414024"
+                                liveChange="onChangeDocnum">
+                                <m:rules>
+                                    <m:MaskInputRule maskFormatSymbol="~" regex="[^_]" />
+                                </m:rules>
+                            </m:MaskInput>
+                        </fb:control>
+                    </fb:FilterGroupItem>
+
+                    <fb:FilterGroupItem groupName="__$INTERNAL$" name="idTypeCombo" label="전표유형"
+                        visibleInFilterBar="true">
+                        <fb:control>
+                            <m:ComboBox
+                                id="idTypeCombo"
+                                showSecondaryValues="true"
+                                items="{
+                            path: '/SliptypeSet',
+                            templateShareable: true
+                                    }"
+                                placeholder="AF"
+                                change='onChangeType'>
+                                <core:ListItem
+                                    key="{type}"
+                                    text="{type}"
+                                    additionalText="{desc}"
+                                />
+                            </m:ComboBox>
+                        </fb:control>
+                    </fb:FilterGroupItem>
+                    <fb:FilterGroupItem groupName="__$INTERNAL$" name="idPrfdat" label="증빙 일자"
+                        visibleInFilterBar="true">
+                        <fb:control>
+                            <m:DateRangeSelection
+                                id='idPrfdat'
+                                width="100%"
+                                displayFormat="yyyy/MM/dd"
+                                change="onPrfdateChange" />
+                        </fb:control>
+                    </fb:FilterGroupItem>
+
+                    <fb:FilterGroupItem groupName="__$INTERNAL$" name="idPstdat" label="전기 일자"
+                        visibleInFilterBar="true">
+                        <fb:control>
+                            <m:DateRangeSelection
+                                id='idPstdat'
+                                width="100%"
+                                displayFormat="yyyy/MM/dd"
+                                change="onPstdateChange" />
+                        </fb:control>
+                    </fb:FilterGroupItem>
+
+                    <fb:FilterGroupItem groupName="__$INTERNAL$" name="idManager" label="담당자 id"
+                        visibleInFilterBar="true">
+                        <fb:control>
+                            <m:MaskInput
+                                id='idManagerid'
+                                mask="~~~~~~~~"
+                                placeholderSymbol="_"
+                                placeholder="ex) 20120023"
+                                liveChange="onChangeManagerid">
+                                <m:rules>
+                                    <m:MaskInputRule maskFormatSymbol="~" regex="[^_]" />
+                                </m:rules>
+                            </m:MaskInput>
+                        </fb:control>
+                    </fb:FilterGroupItem>
+
+                    <fb:FilterGroupItem groupName="__$INTERNAL$" name="idPartner" label="협력사 id"
+                        visibleInFilterBar="true">
+                        <fb:control>
+                            <m:MaskInput
+                                id='idParterid'
+                                mask="~~~~~"
+                                placeholderSymbol="_"
+                                placeholder="ex) PAT02"
+                                liveChange="onChangePartnerid">
+                                <m:rules>
+                                    <m:MaskInputRule maskFormatSymbol="~" regex="[^_]" />
+                                </m:rules>
+                            </m:MaskInput>
+                        </fb:control>
+                    </fb:FilterGroupItem>
+                </fb:filterGroupItems>
+            </fb:FilterBar>
+        </headerContent>
+
+        <sections>
+            <ObjectPageSection titleUppercase="false" title="조회 결과">
+                <subSections>
+                    <ObjectPageSubSection titleUppercase="false">
+                        <blocks>
+                            <t:Table
+                                id="idSlipTable"
+                                rowActionCount="1"
+                                rows="{/SLIPHSet}"
+                                selectionMode="MultiToggle"
+                                visibleRowCount="10"
+                                paste="onPaste"
+                                filter="filterTable"
+                                ariaLabelledBy="title">
+                                <t:extension>
+                                    <m:OverflowToolbar style="Clear">
+                                        <m:Title text="전표 조회 결과" />
+                                    </m:OverflowToolbar>
+                                </t:extension>
+
+                                <t:columns>
+
+                                    <t:Column>
+                                        <m:Label text="전표번호" />
+                                        <t:template>
+                                            <m:Text text="{Slipid}" wrapping="false" width="7rem" />
+                                        </t:template>
+                                    </t:Column>
+                                    <t:Column>
+                                        <m:Label text="증빙문서번호" />
+                                        <t:template>
+                                            <m:Text text="{Docnum}" width="7rem" />
+                                        </t:template>
+                                    </t:Column>
+
+                                    <t:Column>
+                                        <m:Label text="전표유형" />
+                                        <t:template>
+                                            <m:ObjectIdentifier
+                                                title="{Sliptype}"
+                                                text="{Slipdesc}" />
+                                        </t:template>
+                                    </t:Column>
+                                    <t:Column>
+                                        <m:Label text="증빙일자" />
+                                        <t:template>
+                                            <m:Text
+                                                text="{ path : 'Prfdate',  formatter: '.formatter.dateTime' }" />
+                                        </t:template>
+                                    </t:Column>
+
+                                    <t:Column>
+                                        <m:Label text="전기일자" />
+                                        <t:template>
+                                            <m:Text
+                                                text="{ path : 'Pstdate',  formatter: '.formatter.dateTime' }" />
+                                        </t:template>
+                                    </t:Column>
+
+                                    <t:Column>
+                                        <m:Label text="작성담당자" />
+                                        <t:template>
+                                            <m:ObjectIdentifier
+                                                title="{Managerid}"
+                                                text="{Name}" />
+                                        </t:template>
+                                    </t:Column>
+                                    <t:Column>
+                                        <m:Label text="거래처" />
+                                        <t:template>
+                                            <m:ObjectIdentifier
+                                                title="{Partid}"
+                                                text="{Partname}" />
+                                        </t:template>
+                                    </t:Column>
+                                </t:columns>
+                            </t:Table>
+                        </blocks>
+                    </ObjectPageSubSection>
+                </subSections>
+            </ObjectPageSection>
+        </sections>
+    </ObjectPageLayout>
+</mvc:View>

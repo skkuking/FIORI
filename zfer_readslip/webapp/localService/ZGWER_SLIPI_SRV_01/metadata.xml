@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="1.0" xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx" xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata" xmlns:sap="http://www.sap.com/Protocols/SAPData">
+    <edmx:DataServices m:DataServiceVersion="2.0">
+        <Schema Namespace="ZGWER_SLIPI_SRV_01" xml:lang="en" sap:schema-version="1" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+            <EntityType Name="Slipitem" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="Slipid"/>
+                </Key>
+                <Property Name="Slipid" Type="Edm.String" Nullable="false" MaxLength="12" sap:unicode="false" sap:label="전표ID" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Prnum" Type="Edm.String" Nullable="false" MaxLength="6" sap:unicode="false" sap:label="순번" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Partid" Type="Edm.String" Nullable="false" MaxLength="5" sap:unicode="false" sap:label="협력사ID" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Pname" Type="Edm.String" Nullable="false" MaxLength="20" sap:unicode="false" sap:label="대표자명" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Sliptype" Type="Edm.String" Nullable="false" MaxLength="2" sap:unicode="false" sap:label="전표유형" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Typedesc" Type="Edm.String" Nullable="false" MaxLength="8" sap:unicode="false" sap:label="TYPEDESC" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Pstdate" Type="Edm.DateTime" Nullable="false" Precision="7" sap:unicode="false" sap:label="전기 일자" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Docnum" Type="Edm.String" Nullable="false" MaxLength="12" sap:unicode="false" sap:label="증빙문서번호" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Prfdate" Type="Edm.DateTime" Nullable="false" Precision="7" sap:unicode="false" sap:label="증빙 일자" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Managerid" Type="Edm.String" Nullable="false" MaxLength="8" sap:unicode="false" sap:label="FI담당자ID" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Deptid" Type="Edm.String" Nullable="false" MaxLength="2" sap:unicode="false" sap:label="부서ID" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Ename" Type="Edm.String" Nullable="false" MaxLength="20" sap:unicode="false" sap:label="성명" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Accocode" Type="Edm.String" Nullable="false" MaxLength="4" sap:unicode="false" sap:label="계정 코드" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Acconm" Type="Edm.String" Nullable="false" MaxLength="8" sap:unicode="false" sap:label="계정 이름" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Accocat" Type="Edm.String" Nullable="false" MaxLength="2" sap:unicode="false" sap:label="계정 분류" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Dcindicator" Type="Edm.String" Nullable="false" MaxLength="1" sap:unicode="false" sap:label="차대변 지시자" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Amt" Type="Edm.Decimal" Nullable="false" Precision="11" Scale="3" sap:unicode="false" sap:label="금액" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Tax" Type="Edm.Decimal" Nullable="false" Precision="11" Scale="3" sap:unicode="false" sap:label="세금" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Partnum" Type="Edm.String" Nullable="false" MaxLength="12" sap:unicode="false" sap:label="사업자등록번호" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Curkey" Type="Edm.String" Nullable="false" MaxLength="5" sap:unicode="false" sap:label="통화" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false" sap:semantics="currency-code"/>
+            </EntityType>
+            <EntityContainer Name="ZGWER_SLIPI_SRV_01_Entities" m:IsDefaultEntityContainer="true" sap:supported-formats="atom json xlsx">
+                <EntitySet Name="SlipitemSet" EntityType="ZGWER_SLIPI_SRV_01.Slipitem" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:content-version="1"/>
+            </EntityContainer>
+            <atom:link rel="self" href="http://edu.bgis.co.kr:8001/sap/opu/odata/SAP/ZGWER_SLIPI_SRV_01/$metadata" xmlns:atom="http://www.w3.org/2005/Atom"/>
+            <atom:link rel="latest-version" href="http://edu.bgis.co.kr:8001/sap/opu/odata/SAP/ZGWER_SLIPI_SRV_01/$metadata" xmlns:atom="http://www.w3.org/2005/Atom"/>
+        </Schema>
+    </edmx:DataServices>
+</edmx:Edmx>

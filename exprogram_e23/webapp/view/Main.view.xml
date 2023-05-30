@@ -1,0 +1,99 @@
+<mvc:View controllerName="exprograme23.controller.Main"
+    xmlns:mvc="sap.ui.core.mvc" displayBlock="true"
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+>
+    <Page id="page" title="{i18n>title}">
+    <Title text="항공사 및 항공권 조회" />
+        <content >
+
+            <HBox>
+                <VBox width='25%'>
+                    <Label text="Currency Code" />
+                    <ComboBox
+                        id="idCurrcode"
+                        showSecondaryValues="true"
+                        items="{
+                            path: 'currList>/curr',
+                            templateShareable: true
+                        }"
+                        width="100%">
+                        <core:ListItem
+                            key="{currList>type}"
+                            text="{currList>type}" />
+                    </ComboBox>
+
+                    <Label text="Carrier Name" />
+                    <Input id="idCarrier"  width="100%"/>
+                    <Button text="Search" press="onButtonPress" width="100%" type="Emphasized" />
+                </VBox>
+
+
+                <VBox width="75%">
+                    <Table id="idCarrierTable"
+                        inset="false"
+                        items="{
+                            path: '/carrierSet',
+                            parameters: {
+                                'expand' : 'to_Item'
+                            }
+                            
+                        }"
+                    >
+
+                        <infoToolbar>
+                            <OverflowToolbar>
+                                <Label text="Carrier List" />
+                            </OverflowToolbar>
+                        </infoToolbar>
+
+
+                        <columns>
+                            <Column
+                                width="12em">
+                                <Text text="Carrid" />
+                            </Column>
+                            <Column>
+                                <Text text="Carriername" />
+                            </Column>
+                            <Column>
+                                <Text text="Currcode" />
+                            </Column>
+                            <Column>
+                                <Text text="URL" />
+                            </Column>
+                            <Column>
+                                <Text text="Length" />
+                            </Column>
+                            <Column>
+                                <Text text="Detail" />
+                            </Column>
+                        </columns>
+
+                        <items>
+                            <ColumnListItem vAlign="Middle">
+                                <cells>
+                                    <Text
+                                        text="{Carrid}" />
+                                    <Text
+                                        text="{Carrname}" />
+                                    <Text
+                                        text="{Currcode}" />
+                                    <Text
+                                        text="URL" />
+                                    <Text
+                                        text="{=${to_Item}.length}" />
+                                    <Button text="예약 현황"
+                                        id="idReservation"
+                                        icon="sap-icon://activity-items"
+                                        enabled="{=${to_Item}.length > 0 ? true : false }"
+                                        press="onReservation" />
+                                </cells>
+                            </ColumnListItem>
+                        </items>
+                    </Table>
+                </VBox>
+            </HBox>
+        </content>
+    </Page>
+</mvc:View>

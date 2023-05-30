@@ -1,0 +1,299 @@
+<!-- "ER.zferreadslip.controller.Main" -->
+<mvc:View controllerName="ER.zferreadslip.controller.Second"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:t="sap.ui.table"
+    xmlns="sap.m"
+    xmlns:f="sap.f"
+    xmlns:u="sap.ui.unified"
+    xmlns:viz="sap.viz.ui5.controls"
+    xmlns:layout="sap.ui.layout"
+    xmlns:fb="sap.ui.comp.filterbar"
+    xmlns:core="sap.ui.core"
+    xmlns:viz.feeds="sap.viz.ui5.controls.common.feeds"
+    xmlns:viz.data="sap.viz.ui5.data">
+    <f:DynamicPage>
+        <f:title>
+            <f:DynamicPageTitle>
+                <f:heading>
+                    <Title text="전표조회결과" />
+                </f:heading>
+            </f:DynamicPageTitle>
+        </f:title>
+        <f:content>
+
+            <Table
+                id="idSlipitemTable"
+                headerText="전표상세"
+                items="{
+			path:'item>/SlipitemSet',
+			sorter: {
+				path: 'Slipid',
+				descending: true} }"
+                width="100%">
+                <headerToolbar>
+                    <OverflowToolbar>
+                        <ToolbarSpacer />
+                        <Button icon="sap-icon://excel-attachment" press="onExport" text="Export to Excel" />
+                    </OverflowToolbar>
+                </headerToolbar>
+                <columns>
+                    <Column
+                        mergeDuplicates="true"
+                        vAlign="Middle"
+                        sortIndicator="Descending"
+                        width="7rem"
+                        styleClass="{customColumnStyle}">
+                        <header>
+                            <VBox>
+                                <Text text="전표번호" class="customTableHeader" />
+                            </VBox>
+                        </header>
+                    </Column>
+                    <Column mergeDuplicates="false" vAlign="Middle">
+                        <header>
+                            <VBox>
+                                <Text text="협력사코드" />
+                                <Text text="협력사명" />
+                            </VBox>
+                        </header>
+                    </Column>
+
+                    <!-- 
+                    <Column mergeDuplicates="false" vAlign="Middle">
+                        <header>
+                            <Text text="전표유형" />
+                        </header>
+                    </Column> -->
+                    <Column mergeDuplicates="false" vAlign="Middle">
+                        <header>
+                            <VBox>
+                                <Text text="전표유형코드" />
+                                <Text text="전표유형" />
+                            </VBox>
+                        </header>
+                    </Column>
+
+                    <Column
+                        mergeDuplicates="false"
+                        vAlign="Middle"
+                        width="8rem">
+                        <header>
+                            <VBox>
+                                <Text text="증빙문서번호" />
+                                <Text text="증빙일자" />
+                            </VBox>
+                            <!-- <Text text="증빙문서번호" /> -->
+                        </header>
+                    </Column>
+                    <!-- <Column mergeDuplicates="false" vAlign="Middle">
+                        <header>
+                            <Text text="증빙일자" />
+                        </header>
+                    </Column> -->
+
+
+                    <Column
+                        mergeDuplicates="false"
+                        hAlign="Center"
+                        vAlign="Middle">
+                        <header>
+                            <VBox>
+                                <Text text="사원코드" />
+                                <Text text="작성자명" />
+                            </VBox>
+                        </header>
+                    </Column>
+
+                    <!-- <Column sortIndicator="Descending">
+                        <header>
+                            <Text text="Prnum" />
+                        </header>
+                    </Column> -->
+                    <Column hAlign="Center" vAlign="Middle" width="7rem">
+                        <header>
+                            <VBox>
+                                <Text text="계정코드" />
+                                <Text text="계정과목" />
+                            </VBox>
+                        </header>
+                    </Column>
+                    <Column hAlign="Right" vAlign="Middle">
+                        <header>
+                            <Text text="차변금액" width="4rem" />
+                        </header>
+                    </Column>
+                    <Column hAlign="Right" vAlign="Middle">
+                        <header>
+                            <Text text="대변금액" width="4rem" />
+                        </header>
+                    </Column>
+                    <Column vAlign="Middle">
+                        <header>
+                            <Text text="사업자번호" />
+                        </header>
+                    </Column>
+                </columns>
+
+                <ColumnListItem vAlign="Middle">
+
+                    <Text text="{item>Slipid}" />
+                    <ObjectIdentifier title="{item>Partid}" text="{item>Pname}" />
+                    <ObjectIdentifier title="{item>Sliptype}" text="{item>Typedesc}" />
+                    <!-- <Text text="{path:'item>Pstdate', formatter:'.formatter.dateTime'}" /> -->
+
+                    <ObjectIdentifier title="{item>Docnum}"
+                        text="{path:'item>Prfdate', formatter:'.formatter.dateTime'}" />
+                    <!-- <Text text="{item>Docnum}" />
+                    <Text text="{path:'item>Prfdate', formatter:'.formatter.dateTime'}" /> -->
+
+                    <ObjectIdentifier title="{item>Managerid}" text="{item>Ename}" />
+                    <!-- <Text text="{item>Prnum}" /> -->
+                    <ObjectIdentifier title="{item>Accocode}" text="{item>Acconm}" />
+                    <u:Currency
+                        value="{= ${item>Dcindicator} === '3' ? (Number(${item>Amt}) +
+                    Number(${item>Tax})) * 100   : 0 }"
+                        currency="{item>Curkey}" useSymbol="false" />
+                    <u:Currency
+                        value="{= ${item>Dcindicator} === '4' ? (Number(${item>Amt}) +
+                    Number(${item>Tax})) * 100    : 0 }"
+                        currency="{item>Curkey}" useSymbol="false" />
+                    <Text text="{item>Partnum}" />
+
+                </ColumnListItem>
+            </Table>
+
+        </f:content>
+    </f:DynamicPage>
+</mvc:View>
+
+<!-- <ObjectNumber
+  number="{
+    parts: [
+      {
+        path: 'condition' ? (${item>property1} + ${item>property2}) : (${item>property3} *
+${item>property4})
+      },
+      {
+        path: 'item>Curkey'
+      }
+    ],
+    type: 'sap.ui.model.type.Currency',
+    formatOptions: {
+      showMeasure: false
+    }
+  }"
+  unit="{item>Curkey}"
+/> -->
+<!-- <ObjectNumber
+  textAlign="End"
+  number="{
+    parts: [
+      {
+        path: ${item>Dcindicator} === '3' ? (${item>Amt} + ${item>Tax}) : 0
+      },
+      {
+        path: 'item>Curkey'
+      }
+    ],
+    type: 'sap.ui.model.type.Currency',
+    formatOptions: {
+      showMeasure: false
+    }
+  }"
+  unit="{item>Curkey}"
+/> -->
+
+
+<!-- <ObjectNumber 
+                    textAlign="End"
+                    number="{
+                                parts: [
+                                {
+                                    path: ${item>Dcindicator} === '3' ?  ${item>Amt}  : 0 
+                                }, 
+                                {
+                                    path:'item>Curkey'
+                                }
+                                ],
+                                type: 'sap.ui.model.type.Currency',
+                                formatOptions: {
+                                    showMeasure: false
+                                }
+                            }"
+                    unit="{item>Curkey}" 
+                    />
+                    <ObjectNumber 
+                    textAlign="End"
+                    number="{
+                                parts: [
+                                {
+                                    path: ${item>Dcindicator} === '4' ? ${item>Amt}  : 0 
+                                }, 
+                                {
+                                    path:'item>Curkey'
+                                }
+                                ],
+                                type: 'sap.ui.model.type.Currency',
+                                formatOptions: {
+                                showMeasure: false
+                                }
+                            }"
+                    unit="{item>Curkey}" /> -->
+<!-- <ObjectIdentifier  
+                        text="{= ${item>Dcindicator} === '3' ? (Number(${item>Amt}) +
+                    Number(${item>Tax})) : 0 }" />  -->
+<!-- <ObjectIdentifier
+                        text="{= ${item>Dcindicator} === '4' ? (Number(${item>Amt}) +
+                    Number(${item>Tax}))   : 0 }" /> -->
+<!-- <Column mergeDuplicates="true">
+                        <header>
+                            <Text text="Pname" />
+                        </header>
+                    </Column> -->
+<!-- <ObjectNumber
+                        number="{WeightMeasure}" unit="{WeightUnit}"
+                        state="{
+					path: 'WeightMeasure',
+					formatter: 'sap.m.sample.TableMergeCells.Formatter.weightState'
+				}" /> -->
+<!-- <ObjectNumber
+                        number="{
+						parts:[{path:'Price'},{path:'CurrencyCode'}],
+						type: 'sap.ui.model.type.Currency',
+						formatOptions: {showMeasure: false}
+					}"
+                        unit="{CurrencyCode}" /> -->
+<!-- <Table id="idSlipitemTable"
+                inset="false"
+                items="{item>/SlipitemSet}">
+                <infoToolbar>
+                    <OverflowToolbar>
+                        <Label text="헤더툴바 속 오버플루오 툴바 " />
+                    </OverflowToolbar>
+                </infoToolbar>
+                <columns>
+                    <Column>
+                        <Text text="Slipid" />
+                    </Column>
+                    <Column>
+                        <Text text="Prnum" />
+                    </Column>
+                    <Column>
+                        <Text text="Accocode" />
+                    </Column>
+                </columns>
+                <items>
+                    <ColumnListItem vAlign="Middle">
+                        <cells>
+                            <Text
+                                
+                                text="{item>Slipid}" />
+                            <Text
+                               
+                                text="{item>Prnum}" />
+                            <Text
+                                text="{item>Accocode}" />
+                        </cells>
+                    </ColumnListItem>
+                </items>
+            </Table> -->

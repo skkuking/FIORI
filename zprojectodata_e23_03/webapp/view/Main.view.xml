@@ -33,19 +33,27 @@
 				<m:VBox>
 					<m:Label text="Order ID" />
 					<m:Input id="idOrderID" />
-
-					<!-- type="Number" 
-						valueState="Error"
-						valueStateText="Error Message!!!!!!!" -->
-
 				</m:VBox>
 
 				<m:VBox>
-					<m:Label text="Order Date" />
-					<m:DatePicker
-						id="idOrderDate"
-						displayFormat='yyyy-MM-dd'
-						valueFormat="yyyyMMdd" />
+					<m:Label text="DateRangeSelection with minDate=2016-01-01 and maxDate=2016-12-31:"
+						labelFor="DRS2" />
+					<m:DateRangeSelection
+						id="DRS2"
+						change="handleChange"
+						value="{
+				'type': 'sap.ui.model.type.DateInterval',
+				'parts': [
+					{
+						'type': 'sap.ui.model.type.Date',
+						'path': '/oDRS2Start'
+					},
+					{
+						'type': 'sap.ui.model.type.Date',
+						'path': '/oDRS2End'
+					}
+				]
+			}" />
 				</m:VBox>
 
 				<m:VBox>
@@ -82,7 +90,7 @@
 							<m:Table id="idProductsTable"
 								inset="false"
 								items="{/Orders}"
-								>
+							>
 
 								<!-- "{
 										path : '/Products',

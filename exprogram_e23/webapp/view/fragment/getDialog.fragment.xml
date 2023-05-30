@@ -1,0 +1,115 @@
+<core:FragmentDefinition
+    xmlns:core="sap.ui.core"
+    xmlns="sap.m"
+    xmlns:l="sap.ui.layout"
+    xmlns:t="sap.ui.table"
+    xmlns:viz.data="sap.viz.ui5.data"
+    xmlns:viz.feeds="sap.viz.ui5.controls.common.feeds"
+    xmlns:viz="sap.viz.ui5.controls">
+    <Dialog id="getDialog" title="{carrierSet>/Carrname}" beforeOpen="beforeOpen" >
+        <content>
+            <HBox>
+                <VBox>
+
+                    <Table
+                        id = "idDialogTable"
+                        inset="false"
+                        items="{
+                            path: '/carrierSet',
+                            parameters: {
+                                'expand' : 'to_Item'
+                            }
+                            
+                        }"
+                    >
+
+                        <infoToolbar>
+                            <OverflowToolbar>
+                                <Label text="Carrier List" />
+                            </OverflowToolbar>
+                        </infoToolbar>
+
+
+                        <columns>
+                            <Column
+                                width="12em">
+                                <Text text="Carrid" />
+                            </Column>
+                            <Column>
+                                <Text text="Carriername" />
+                            </Column>
+                            <Column>
+                                <Text text="Seatsmax" />
+                            </Column>
+                            <Column>
+                                <Text text="Seatsocc" />
+                            </Column>
+                        </columns>
+
+                        <items>
+                            <ColumnListItem vAlign="Middle">
+                                <cells>
+                                    <Text
+                                        text="{Carrid}" />
+                                    <Text
+                                        text="{Carrname}" />
+                                    <Text
+                                        text="{Seatsmax}" />
+                                    <Text
+                                        text="{Seatsocc}" />
+                                </cells>
+                            </ColumnListItem>
+                        </items>
+                    </Table>
+
+
+                </VBox>
+
+                <VBox>
+                    <viz:VizFrame vizType='stacked_column' uiConfig="{applicationSet:'fiori'}"
+                        vizProperties="{         'title' : { 'visible' : true , text : '항공편 현황'},
+                                            'legendGroup': {layout:{position: 'left'} },
+                                              'plotArea' : {drawingEffect: 'glossy' , dataLabel: { visible: true, type:'value'} }
+                                        }"
+                        id="idVizFrame">
+
+                        <viz:dataset>
+                            <viz.data:FlattenedDataset data="{/carrierSet}">
+                                <viz.data:dimensions>
+
+                                    <viz.data:DimensionDefinition name="Connid"
+                                        value="{Connid}" />
+                                </viz.data:dimensions>
+                                
+                                <viz.data:measures>
+                                    <viz.data:MeasureDefinition name="Seatsocc"
+                                        value="{/Seatsocc}"/>
+                                    <viz.data:MeasureDefinition name="Seatsmax"
+                                        value="{/Seatsmax}" />
+                                </viz.data:measures>
+                            </viz.data:FlattenedDataset>
+                        </viz:dataset>
+
+                        <viz:feeds>
+                            <viz.feeds:FeedItem uid="valueAxis" type="Measure"
+                                values="Seatsocc,Seatsmax" />
+                            <viz.feeds:FeedItem uid="categoryAxis" type="Dimension"
+                                values="Connid" />
+                        </viz:feeds>
+
+                    </viz:VizFrame>
+
+                </VBox>
+            </HBox>
+        </content>
+        <endButton>
+            <Button text="close" press="onCloseDialog" />
+        </endButton>
+    </Dialog>
+</core:FragmentDefinition>
+<!-- sap.ui.core.FragmentDefinition
+sap.m.Dialog
+sap.m.HBox
+sap.m.VBox
+sap.ui.table.Table
+sap.viz.ui5.controls.VizFrame -->

@@ -19,6 +19,7 @@ sap.ui.define([
                 // 버튼 클릭 시 Detail 화면으로 이동
                 // 라우터 가져오기
                 var oRouter = this.getOwnerComponent().getRouter();
+                debugger;
 
                 // 라우터 객체에 navTo 메서드 실행.   oRouter.navTo("객체이름",{파라미터});
                 oRouter.navTo("RouteDetail",{
